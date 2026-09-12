@@ -1,0 +1,55 @@
+table 'Date Table'
+	lineageTag: fc08aae3-bedf-49b8-8b19-08a651c3707c
+
+	column Date
+		formatString: dd/mm/yyyy
+		lineageTag: 2a344de0-6c90-45f0-b67b-a87444310cd2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 5e5a4f8d-506f-4b11-8e79-38686d27916e
+			defaultHierarchy: LocalDateTable_d4c17936-6c6e-4967-b739-978ba4872a61.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Month Number' = MONTH('Date Table'[Date])
+		formatString: 0
+		lineageTag: 8170e6d8-0907-4318-a6c7-1ba7c46b7fac
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name' = FORMAT('Date Table'[Date],"mmm")
+		lineageTag: 117ff5d1-82a8-44a0-9ee8-852ca9f91c02
+		summarizeBy: none
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Initial' = LEFT(FORMAT('Date Table'[Date],"mmm"),1) & REPT(UNICHAR( 8203 ),MONTH('Date Table'[Date]))
+		lineageTag: b76d2255-d5ec-4a11-a3a8-5479d6ce7d91
+		summarizeBy: none
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = YEAR('Date Table'[Date])
+		formatString: 0
+		lineageTag: ca9dc74f-0298-4546-aab8-c8b31378db20
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Date Table' = calculated
+		mode: import
+		source = CALENDAR(MIN('Sales Opportunities'[Reporting Date]),MAX('Sales Opportunities'[Reporting Date]))
+
+	annotation PBI_Id = cfe6ca659323413eba231d72d1ca4c85
+

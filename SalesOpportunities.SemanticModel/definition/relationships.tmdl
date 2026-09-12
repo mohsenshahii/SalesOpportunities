@@ -1,0 +1,47 @@
+relationship dc1afaec-7945-44a6-8732-b9b0411a8e9d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sales_pipeline.engage_date
+	toColumn: LocalDateTable_ed709489-c76d-4264-a168-ede13a004f0b.Date
+
+relationship 9677dcc6-1b8d-4ae6-8d6c-4880c65a24d6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sales_pipeline.close_date
+	toColumn: LocalDateTable_fc42938f-e500-4ccd-aaa4-2918849cd7ec.Date
+
+relationship 1de36e56-c32d-5bb6-e2f5-de1508b836a8
+	fromColumn: sales_pipeline.product
+	toColumn: products.product
+
+relationship 44558a57-ab28-bf35-59cf-c53a28b08a70
+	fromColumn: sales_pipeline.account
+	toColumn: accounts.account
+
+relationship AutoDetected_8c66507c-3fb7-4710-95ef-ea496cb20ac7
+	fromColumn: sales_pipeline.sales_agent
+	toColumn: sales_teams.sales_agent
+
+relationship b3173a69-7e54-47d1-9d44-dc6e81e5473a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Sales Opportunities'.'Close Date/Expected Close Date'
+	toColumn: LocalDateTable_204ddefd-6c29-4a0a-ba88-1d7f5c5ba71b.Date
+
+relationship 93e6d865-0d1c-1f94-6660-f786b703ee49
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: sales_pipeline.opportunity_id
+	toColumn: 'Sales Opportunities'.'Opportunity ID'
+
+relationship f404924a-d24c-4b84-ad65-f223922d1922
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.Date
+	toColumn: LocalDateTable_412342f9-a71a-45ad-b4c1-5e1e2f40f121.Date
+
+relationship 5e5a4f8d-506f-4b11-8e79-38686d27916e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Date Table'.Date
+	toColumn: LocalDateTable_d4c17936-6c6e-4967-b739-978ba4872a61.Date
+
+relationship 2db71658-2e8e-f2b1-3aae-2b9d2ef190b1
+	fromColumn: 'Sales Opportunities'.'Reporting Date'
+	toColumn: 'Date Table'.Date
+

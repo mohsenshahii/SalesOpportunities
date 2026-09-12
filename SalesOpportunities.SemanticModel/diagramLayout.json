@@ -1,0 +1,138 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 1104.800048828125,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 255
+          },
+          "nodeIndex": "accounts",
+          "nodeLineageTag": "06c969af-e061-44ac-9473-3c19aac5d135",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 938,
+            "y": 0
+          },
+          "nodeIndex": "data_dictionary",
+          "nodeLineageTag": "fe7b0644-fc91-4289-94c2-8a580eca738e",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 25
+          },
+          "nodeIndex": "products",
+          "nodeLineageTag": "549cfb9f-2b18-48f6-b300-0a429c3ad56f",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 342,
+            "y": 0
+          },
+          "nodeIndex": "sales_pipeline",
+          "nodeLineageTag": "29b122ce-a861-4efa-b485-0dcefbf8976d",
+          "size": {
+            "height": 291,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 329.39999389648438,
+            "y": 363
+          },
+          "nodeIndex": "sales_teams",
+          "nodeLineageTag": "169a1ad6-a181-440b-ab0e-303deaafb3fa",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 684.20001220703125,
+            "y": 0
+          },
+          "nodeIndex": "Sales Opportunities",
+          "nodeLineageTag": "440ccf02-eadb-47c7-8242-746496dd7b3d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1222,
+            "y": 107.5
+          },
+          "nodeIndex": "DimDate",
+          "nodeLineageTag": "231fb0e9-8e4d-441f-b803-32fa66c9c1bb",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1506,
+            "y": 157.5
+          },
+          "nodeIndex": "Date Table",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1790,
+            "y": 205.5
+          },
+          "nodeIndex": "Key Measures",
+          "nodeLineageTag": "ec7d29a7-0f32-4ad5-9370-0bfbaaa34411",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

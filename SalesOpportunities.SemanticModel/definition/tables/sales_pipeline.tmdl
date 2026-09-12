@@ -1,0 +1,103 @@
+table sales_pipeline
+	lineageTag: 29b122ce-a861-4efa-b485-0dcefbf8976d
+
+	column opportunity_id
+		dataType: string
+		lineageTag: fa893d80-809b-4b68-ab24-4f4f5b613c76
+		summarizeBy: none
+		sourceColumn: opportunity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_agent
+		dataType: string
+		lineageTag: e81eae54-acf8-4e1d-82fe-85f4dfe94bda
+		summarizeBy: none
+		sourceColumn: sales_agent
+
+		annotation SummarizationSetBy = Automatic
+
+	column product
+		dataType: string
+		lineageTag: 76f48a4f-4868-4892-89bc-5ef361e4507e
+		summarizeBy: none
+		sourceColumn: product
+
+		annotation SummarizationSetBy = Automatic
+
+	column account
+		dataType: string
+		lineageTag: fd4eb507-ca6c-48f2-a027-34125bd12841
+		summarizeBy: none
+		sourceColumn: account
+
+		annotation SummarizationSetBy = Automatic
+
+	column deal_stage
+		dataType: string
+		lineageTag: 733b3e92-c97f-45e6-9a57-b6c85d948e88
+		summarizeBy: none
+		sourceColumn: deal_stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column engage_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7a2a8696-79bb-459c-b8b0-e176b0ce3342
+		summarizeBy: none
+		sourceColumn: engage_date
+
+		variation Variation
+			isDefault
+			relationship: dc1afaec-7945-44a6-8732-b9b0411a8e9d
+			defaultHierarchy: LocalDateTable_ed709489-c76d-4264-a168-ede13a004f0b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column close_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b9f27b9e-883e-4443-bba5-25b2a4ee680f
+		summarizeBy: none
+		sourceColumn: close_date
+
+		variation Variation
+			isDefault
+			relationship: 9677dcc6-1b8d-4ae6-8d6c-4880c65a24d6
+			defaultHierarchy: LocalDateTable_fc42938f-e500-4ccd-aaa4-2918849cd7ec.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column close_value
+		dataType: int64
+		formatString: 0
+		lineageTag: 042af11b-a3eb-4353-ad8d-0c5106388bb8
+		summarizeBy: sum
+		sourceColumn: close_value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sales_pipeline = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Utente\Desktop\CRM+Sales+Opportunities\sales_pipeline.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"opportunity_id", type text}, {"sales_agent", type text}, {"product", type text}, {"account", type text}, {"deal_stage", type text}, {"engage_date", type date}, {"close_date", type date}, {"close_value", Int64.Type}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","",null,Replacer.ReplaceValue,{"account"}),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Replaced Value", {"account"}),
+				    #"Removed Errors1" = Table.RemoveRowsWithErrors(#"Removed Errors", {"account"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Errors1", each ([account] <> null) and ([close_value] <> null)),
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [close_date] <> null and [close_date] <> "")
+				in
+				    #"Filtered Rows1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

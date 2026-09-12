@@ -1,0 +1,42 @@
+table sales_teams
+	lineageTag: 169a1ad6-a181-440b-ab0e-303deaafb3fa
+
+	column sales_agent
+		dataType: string
+		lineageTag: 28b4463a-f324-4aed-9d49-ca7a5d2cdae4
+		summarizeBy: none
+		sourceColumn: sales_agent
+
+		annotation SummarizationSetBy = Automatic
+
+	column manager
+		dataType: string
+		lineageTag: fe646959-0522-4ff9-9b38-64af78fd638b
+		summarizeBy: none
+		sourceColumn: manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column regional_office
+		dataType: string
+		lineageTag: 6d0395a6-da3f-4994-a503-ac633533d2b2
+		summarizeBy: none
+		sourceColumn: regional_office
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sales_teams = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Utente\Desktop\CRM+Sales+Opportunities\sales_teams.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"sales_agent", type text}, {"manager", type text}, {"regional_office", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,15 @@
+expression Salesperson =
+		let
+		    Source = Excel.Workbook(File.Contents("C:\Users\Utente\Downloads\Sales Opportunities.xlsx"), null, true),
+		    Salesperson_Sheet = Source{[Item="Salesperson",Kind="Sheet"]}[Data],
+		    #"Promoted Headers" = Table.PromoteHeaders(Salesperson_Sheet, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Salesperson", type text}, {"Images", type text}, {"Column3", type any}, {"Column4", type any}, {"Column5", type any}, {"Column6", type any}, {"Column7", type any}, {"Column8", type text}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type",{"Salesperson", "Images"})
+		in
+		    #"Removed Other Columns"
+	lineageTag: 4b5dbfd6-eae0-4285-b9fb-092d86215756
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

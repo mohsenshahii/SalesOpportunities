@@ -1,0 +1,77 @@
+table accounts
+	lineageTag: 06c969af-e061-44ac-9473-3c19aac5d135
+
+	column account
+		dataType: string
+		lineageTag: e8a096a1-d211-49ed-a3d5-e4127e9e855f
+		summarizeBy: none
+		sourceColumn: account
+
+		annotation SummarizationSetBy = Automatic
+
+	column sector
+		dataType: string
+		lineageTag: 818e47cc-a831-4854-94d0-f2f4d46681e6
+		summarizeBy: none
+		sourceColumn: sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_established
+		dataType: int64
+		formatString: 0
+		lineageTag: 896f412e-bc2b-46bf-a361-0be1fa3b6c00
+		summarizeBy: none
+		sourceColumn: year_established
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue
+		dataType: double
+		lineageTag: d5c45f42-4e42-4322-8c91-60a6cf41eb3a
+		summarizeBy: none
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column employees
+		dataType: int64
+		formatString: 0
+		lineageTag: 789ef18a-e472-40e8-b379-281891881549
+		summarizeBy: none
+		sourceColumn: employees
+
+		annotation SummarizationSetBy = Automatic
+
+	column office_location
+		dataType: string
+		lineageTag: eaf1825e-a39e-478d-8681-0232c71e364d
+		summarizeBy: none
+		sourceColumn: office_location
+
+		annotation SummarizationSetBy = Automatic
+
+	column subsidiary_of
+		dataType: string
+		lineageTag: 45730f6f-d14b-459e-9009-dde84dcdec59
+		summarizeBy: none
+		sourceColumn: subsidiary_of
+
+		annotation SummarizationSetBy = Automatic
+
+	partition accounts = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Utente\Desktop\CRM+Sales+Opportunities\accounts.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"account", type text}, {"sector", type text}, {"year_established", Int64.Type}, {"revenue", type number}, {"employees", Int64.Type}, {"office_location", type text}, {"subsidiary_of", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

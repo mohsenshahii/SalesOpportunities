@@ -1,0 +1,57 @@
+table 'Key Measures'
+	lineageTag: ec7d29a7-0f32-4ad5-9370-0bfbaaa34411
+
+	measure 'Total Oportunities' = COUNT('Sales Opportunities'[Opportunity ID])
+		formatString: #,0
+		lineageTag: a6f268bb-738f-4c35-b334-9466a2378ee9
+
+	measure 'Opportunities Won' = CALCULATE([Total Oportunities],'Sales Opportunities'[Deal Status] = "Won")
+		formatString: 0
+		lineageTag: 66454cda-5aa9-4041-872f-ced37a8621bf
+
+	measure 'Opportunities Lost' = CALCULATE([Total Oportunities],'Sales Opportunities'[Deal Status] = "Lost")
+		formatString: 0
+		lineageTag: f30b0c62-0ba3-4f84-b74e-a5a4a3d07644
+
+	measure 'Opportunity Value' = SUM('Sales Opportunities'[Opportunity Value (USD)])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f370a8ba-737b-421f-8ba2-68155b0340d9
+
+	measure 'Opportunity Value Won' = CALCULATE([Opportunity Value], 'Sales Opportunities'[Deal Status] = "Won")
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 161485c6-81fe-47b2-92a5-1ba64ac31f41
+
+	measure 'Opportunity Value Lost' = CALCULATE([Opportunity Value], 'Sales Opportunities'[Deal Status] = "Lost")
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 57553513-67f8-47c7-aab9-e9b911fe7974
+
+	measure 'Win Rate' =
+			
+			DIVIDE(
+			[Opportunities Won],
+			CALCULATE([Total Oportunities], 'Sales Opportunities'[Deal Status] IN {"Won","Lost"})
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: d2f3e506-1d7b-4f11-9378-e5d42b9b7227
+
+	measure 'Conversion Rate' =
+			
+			VAR ProposalCount = CALCULATE([Total Oportunities],'Sales Opportunities'[Sales stage] = "Proposal")
+			VAR WonCount = [Opportunities Won]
+			RETURN
+			DIVIDE(WonCount,ProposalCount+WonCount)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 6855913e-b70a-4257-982e-f394a7a7b7d2
+
+	partition 'Key Measures' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
