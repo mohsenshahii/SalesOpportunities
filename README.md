@@ -109,28 +109,6 @@ DIVIDE(WonCount,ProposalCount+WonCount)
 
 ---
 
-## 🗂️ Project Structure
-
-```text
-SalesOpportunities/
-│
-├── SalesOpportunities.pbip
-│
-├── SalesOpportunities.Report/
-│   └── ...
-│
-├── Screenshots/
-│   ├── dashboard-overview.png
-│   ├── sales-analysis.png
-│   └── opportunity-analysis.png
-│
-├── Documentation/
-│   ├── data-dictionary.md
-│   └── dax-measures.md
-│
-└── README.md
-```
-
 ---
 
 ## 📈 Key Insights
